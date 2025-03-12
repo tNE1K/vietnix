@@ -53,10 +53,10 @@ Privacy Enhance Mail (PEM) file là một định dạng tệp được sử d�
 Private Key là file mã hóa quan trọng, đóng vai trò bảo mật trong quá trình thiết lập kết nối an toàn giữa mát chủ và trình duyệt.
 
 Cách Private Key hoạt động trong SSL:
-- Tạo cặp khóa: Khi yêu cầu SSL, hệ thống tạo ra một cặp khóa gồm Private Key và Public Key.
-- Tạo CSR: Private Key được dùng để tạo Certificate Signing Request (CSR) gửi đến tổ chức cấp chứng chỉ (CA).
-- Cấp chứng chỉ SSL: CA xác thực và cấp chứng chỉ SSL chứa Public Key.
-- Thiết lập kết nối an toàn: Khi trình duyệt kết nối đến máy chủ, nó nhận Public Key từ chứng chỉ SSL. Sau đó trình duyệt sử dụng Public Key để mã hóa dữ liệu, chỉ máy chủ (Có Private Key mới có thể giải mã).
+- **Tạo cặp khóa**: Khi yêu cầu SSL, hệ thống tạo ra một cặp khóa gồm Private Key và Public Key.
+- **Tạo CSR**: Private Key được dùng để tạo Certificate Signing Request (CSR) gửi đến tổ chức cấp chứng chỉ (CA).
+- **Cấp chứng chỉ SSL**: CA xác thực và cấp chứng chỉ SSL chứa Public Key.
+- **Thiết lập kết nối an toàn**: Khi trình duyệt kết nối đến máy chủ, nó nhận Public Key từ chứng chỉ SSL. Sau đó trình duyệt sử dụng Public Key để mã hóa dữ liệu, chỉ máy chủ (Có Private Key mới có thể giải mã).
 
 ## 6. PFX file là gì? Cách chuyển từ file crt sang PFX file.
 PFX file là một loại file certificate trong hệ thống Windows. File này chứa cả chứng thực số và khóa riêng tư được mã hóa.
@@ -168,17 +168,17 @@ Pointer (PTR) Record là một loại bản ghi DNS được sử dụng để  
 DNS, viết tắt của Domain Name System, được hiểu là hệ thống phân giải tên miền. Nghĩa là, đây là một hệ thống chuyển đổi các tên miền website, chuyển từ dạng www.example.com sang dạng địa chỉ IP tương ứng với tên miền và ngược lại.
 ## 2. Các loại record DNS?
 Các loại record DNS phổ biến bao gồm:
-- SOA (Start Of Authority) Record: Cung cấp thông tin về quản trị DNS của tên miền, như email quản trị viên và thông số cập nhật. Bao gồm các thông tin về domain trên DNS Server, thông tin về zone transfer.
-- NS (Name Server) Record: Chỉ định máy chủ DNS chịu trách nhiệm cho một tên miền.
-- A Record: Trỏ một tên miền hoặc subdomain đến một địa chỉ IPv4.
-- AAAA Record: Giống với A Record nhưng trỏ đến địa chỉ IPv6.
-- PTR (Pointer) Record: Dùng để tra cứu ngược (Reverse DNS), ánh xạ từ địa chỉ IP đến tên miền.
-- SRV (Service) Record: Xác định vị trí dịch vụ cụ thể trong một domain, ví dụ tên máy chủ và số cổng của các máy chủ cho các dịch vụ được chỉ định.
-- CNAME (Canonical Name) Record: Trỏ một tên miền hoặc subdomain đến một tên miền khác.
-- MX (Mail Exchange) Record: Xác định máy chủ email của tên miền.
-- TXT (Text) Record: Lưu trữ thông tin dạng văn bản, thường được dùng để xác thực máy chủ với tên miền.
-- DKIM (Domain Key Identified Mail) Record: Là bản ghi dùng để xác thực người gửi bằng cách mã hóa một phần email gửi bằng một chuỗi ký tự, xem như là chữ ký. Khi email được gửi đi máy chủ mail sẽ kiểm so sánh với thông tin bản ghi đã được cấu hình trong DNS để xác nhận.
-- SPF (Sender Policy Framework) Record: Là một dạng thông tin được lưu trữ trong DNS của một tên miền. Nó cho phép một tên miền xác định danh sách các máy chủ email được phép gửi email thay cho tên miền đó.
+- **SOA (Start Of Authority) Record**: Cung cấp thông tin về quản trị DNS của tên miền, như email quản trị viên và thông số cập nhật. Bao gồm các thông tin về domain trên DNS Server, thông tin về zone transfer.
+- **NS (Name Server) Record**: Chỉ định máy chủ DNS chịu trách nhiệm cho một tên miền.
+- **A Record**: Trỏ một tên miền hoặc subdomain đến một địa chỉ IPv4.
+- **AAAA Record**: Giống với A Record nhưng trỏ đến địa chỉ IPv6.
+- **PTR (Pointer) Record**: Dùng để tra cứu ngược (Reverse DNS), ánh xạ từ địa chỉ IP đến tên miền.
+- **SRV (Service) Record**: Xác định vị trí dịch vụ cụ thể trong một domain, ví dụ tên máy chủ và số cổng của các máy chủ cho các dịch vụ được chỉ định.
+- **CNAME (Canonical Name) Record**: Trỏ một tên miền hoặc subdomain đến một tên miền khác.
+- **MX (Mail Exchange) Record**: Xác định máy chủ email của tên miền.
+- **TXT (Text) Record**: Lưu trữ thông tin dạng văn bản, thường được dùng để xác thực máy chủ với tên miền.
+- **DKIM (Domain Key Identified Mail) Record**: Là bản ghi dùng để xác thực người gửi bằng cách mã hóa một phần email gửi bằng một chuỗi ký tự, xem như là chữ ký. Khi email được gửi đi máy chủ mail sẽ kiểm so sánh với thông tin bản ghi đã được cấu hình trong DNS để xác nhận.
+- **SPF (Sender Policy Framework) Record**: Là một dạng thông tin được lưu trữ trong DNS của một tên miền. Nó cho phép một tên miền xác định danh sách các máy chủ email được phép gửi email thay cho tên miền đó.
 
 ## 3. Nguyên tắc làm việc của DNS?
 Mỗi nhà cung cấp dịch vụ (ISP) vận hành và duy trì DNS server riêng của mình. Tức là nếu một trình duyệt tìm kiếm địa chỉ của một website thì DNS server phân giải tên website này phải là DNS server của ISP đó chứ không phải là của một ISP nào khác.
