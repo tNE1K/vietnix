@@ -746,27 +746,27 @@ top -p PID1,PID2,PID3
 
 ### b. Giải thích về Load average, us, sy, ni, id, wa, hi, si, st, zombie process, sleeping process
 
-- Load average: thể hiện mức tải trung bình của CPU; thông số được biểu biến với 3 giá trị lần lượt có ý nghĩa là mức tải trung bình trong 1 phút, 5 phút, 15 phút; hệ số nhỏ hơn số nhân CPU nghĩa là đang tải bình thường, bằng với số nhân CPU có nghĩa CPU đang được chạy hết công suất 100%, lớn hơn số nhân có nghĩa CPU đang bị quá tải.
-- us (User CPU time): Phần trăm CPU dành cho tiến trình của user (ứng dụng, chương trình).
-- sy (System CPU time): Phần trăm CPU dành cho tiến trình hệ thống (kernel, drivers).
-- ni (Nice CPU time): Phần trăm CPU dành cho tiến trình có mức ưu tiên thấp.
-- id (Idle CPU time): Phần trăm CPU đang rảnh rỗi. Càng cao càng tốt.
-- wa (I/O Wait time): CPU đang chờ I/O (đọc/ghi ổ cứng, mạng). Nếu cao, có thể do ổ cứng chậm.
-- hi (Hardware Interrupts): Thời gian CPU xử lý ngắt từ phần cứng (bàn phím, chuột, ổ cứng).
-- si (Software Interrupts): 	Thời gian CPU xử lý ngắt từ phần mềm.
-- st (Steal Time): CPU bị "ăn cắp" bởi máy ảo. Nếu cao, có thể do tài nguyên CPU bị hạn chế.
-- zombie process: Process đã kết thúc nhưng vẫn còn tồn tại trong bảng ghi, chưa được hệ thống xóa.
-- sleeping process: Process đang chờ tài nguyên hoặc sự kiện xảy ra.
+- **Load average**: thể hiện mức tải trung bình của CPU; thông số được biểu biến với 3 giá trị lần lượt có ý nghĩa là mức tải trung bình trong 1 phút, 5 phút, 15 phút; hệ số nhỏ hơn số nhân CPU nghĩa là đang tải bình thường, bằng với số nhân CPU có nghĩa CPU đang được chạy hết công suất 100%, lớn hơn số nhân có nghĩa CPU đang bị quá tải.
+- **us (User CPU time)**: Phần trăm CPU dành cho tiến trình của user (ứng dụng, chương trình).
+- **sy (System CPU time)**: Phần trăm CPU dành cho tiến trình hệ thống (kernel, drivers).
+- **ni (Nice CPU time**): Phần trăm CPU dành cho tiến trình có mức ưu tiên thấp.
+- **id (Idle CPU time)**: Phần trăm CPU đang rảnh rỗi. Càng cao càng tốt.
+- **wa (I/O Wait time)**: CPU đang chờ I/O (đọc/ghi ổ cứng, mạng). Nếu cao, có thể do ổ cứng chậm.
+- **hi (Hardware Interrupts)**: Thời gian CPU xử lý ngắt từ phần cứng (bàn phím, chuột, ổ cứng).
+- **si (Software Interrupts)**: Thời gian CPU xử lý ngắt từ phần mềm.
+- **st (Steal Time)**: CPU bị "ăn cắp" bởi máy ảo. Nếu cao, có thể do tài nguyên CPU bị hạn chế.
+- **zombie process**: Process đã kết thúc nhưng vẫn còn tồn tại trong bảng ghi, chưa được hệ thống xóa.
+- **sleeping process**: Process đang chờ tài nguyên hoặc sự kiện xảy ra.
 
 
 ## 26. free
 Lệnh free trong Linux được sử dụng để kiểm tra bộ nhớ RAM và Swap của hệ thống. Nó hiển thị thông tin về tổng dung lượng, dung lượng đã sử dụng, dung lượng còn trống, và dung lượng được cache/buffer.
 ### a. Giải thích ram used, free, shared, buff/cache
 
-- used: RAM đã được sử dụng, không tính buff/cache.
-- free: RAM trống, chưa sử dụng.
-- shared: RAM được chia sẻ giữa các tiến trình.
-- buff/cache: RAM được hệ thống dùng làm buffer và cache để tăng tốc truy xuất dữ liệu.
+- **used**: RAM đã được sử dụng, không tính buff/cache.
+- **free**: RAM trống, chưa sử dụng.
+- **shared**: RAM được chia sẻ giữa các tiến trình.
+- **buff/cache**: RAM được hệ thống dùng làm buffer và cache để tăng tốc truy xuất dữ liệu.
 
 ## 27. df
 ### a. Xem dung lượng disk
