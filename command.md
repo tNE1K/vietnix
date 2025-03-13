@@ -5,9 +5,28 @@
 
 ![Hình ảnh](./images/ping.png)
 
+![Hình ảnh](./images/hping3.png)
+
 </div>
 
-### a. ttl là gì?
+### a. ping và hping3
+**ping** là một lệnh dùng để kiểm tra kết nối mạng giữa hai thiết bị. Nó gửi các gói tin ICMP đến địa chỉ đích và đo thời gian phản hồi.
+
+**hping3**
+hping3 là một công cụ dòng lệnh mạnh mẽ dùng để kiểm tra, phân tích và tấn công kiểm tra bảo mật mạng. Nó hoạt động tương tự như ping nhưng hỗ trợ TCP, UDP, ICMP, và RAW IP packets, giúp kiểm tra firewall, bảo mật hệ thống và đo hiệu suât mạng.
+
+#### So sánh ping và hping3
+|Tiêu chí                    |ping                     |hping3                              |
+|----------------------------|-------------------------|------------------------------------|
+|chức năng chính             |Kiểm tra kết nối mạng    |Kiểm tra kết nôi mạng nâng cao      |
+|Giao thức sử dụng           |ICMP                     |TCP, UDP, ICMP, RAW IP              |
+|Hỗ trợ kiểm tra port        |Không                    |Có                                  |
+|Mô phỏng tấn công (Pentest) |Không                    |Có (SYN Flood, UDP Flood, DoS test) |
+|Tùy chỉnh gói tin           |Không                    |Có (Chỉnh TTL, size, flag TCP)      |
+|Quyền yêu cầu               |User thường có thể chạy  |Cần sudo                            |
+
+
+### b. ttl là gì?
 TTL (Time-To-Live) là một trường trong tiêu đề gói tin IP dùng để giới hạn thời gian tồn tại của gói tin trên mạng. Nó giúp ngăn chặn gói tin bị vòng lặp vô hạn trong mạng nếu không đến được đích.
 
 **Cách TTL hoạt động:**
@@ -17,7 +36,7 @@ TTL (Time-To-Live) là một trường trong tiêu đề gói tin IP dùng để
 - Nếu gói tin đến đích trước khi TTL giảm hết, máy đích sẽ trả về phản hồi.
 
 Trong ví dụ trên, phản hồi có **ttl=53**, nghĩa là gói tin đã đi qua 64 - 53 = 11 router trước khi đến đích.
-### b. time là gì?
+### c. time là gì?
 **time** trong lệnh ping là thời gian mà gói tin ICMP cần để đi từ máy gửi đến máy đích và quay lại. Nó còn được gọi là RTT (Round Trip Time).
 
 Trong ví dụ trên, phản hồi có **time=4.98ms**, có nghĩa là gói tin mất 4.98ms để đi đến vietnix.vn và quay lại.
@@ -77,6 +96,41 @@ Ví dụ:
 ssh -p 22 kienndt@192.168.1.10
 ```
 ### c. Dùng port custom
+Để kết nối ssh dùng port custom, trước tiên ta cần chỉnh sửa file **sshd_config**:
+```
+nano /etc/ssh/sshd_config
+```
+
+Uncomment dòng:
+```
+*#Port 22*
+```
+
+Thay 22 bằng port mới, ví dụ **2222**:
+```
+Port 2222
+```
+Lưu file và thoát.
+
+Tiếp theo cần mở port trên firewall:
+```
+ufw allow 2222
+```
+Khởi động lại ssh để áp dụng thay đổi:
+```
+systemctl restart ssh
+```
+
+Kết nối thử:
+```
+ssh -p 2222 ubuntu@192.168.0.151
+```
+
+<div align='center'>
+
+![Hình ảnh](./images/ssh.png)
+
+</div>
 
 ## 3. scp
 SCP (Secure Copy) là một lệnh trong Linux cho phép sao chép an toàn các tệp và thư mục giữa hai vị trí. Cú pháp lệnh SCP có dạng sau:
