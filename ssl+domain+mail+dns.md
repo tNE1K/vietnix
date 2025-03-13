@@ -10,38 +10,100 @@ SSL là viết tắt của Secure Sockets Layer, một công nghệ tiêu chuẩ
 
 Kết nối này đảm bảo rằng dữ liệu được truyền giữa host và client được duy trì một cách riêng tư, đáng tin cậy. SSL hiện đã được sử dụng bởi hàng triệu trang web để bảo vệ các giao dịch trực tuyến của họ với khách hàng.
 
-## 2. Có bao nhiêu cách chứng thực SSL?
-Chứng chỉ SSL được chia thành 3 loại chính, sẽ khác nhau về cách thức chứng thực cũng như thông tin chứa trong chứng chỉ, nhưng khả năng bảo mật là như nhau.
+## 2. Có bao nhiêu cách xác thực SSL?
+### a. Xác thực tên miền (Domain Validation)
+Tất cả các chứng chỉ phải tuân theo quy trình xác thực tên miền được sử dụng để xác nhận quyền sở hữu tên miền.
 
-### Domain Validated SSL (DV SSL)
-Đây là loại chứng chỉ SSL cơ bản nhất và chứng thực dựa vào tên miền, nghĩa là tổ chức chứng thực sẽ kiểm tra bạn có phải là người sở hữu tên miền đó hay không bằng cách chứng thực qua DNS, upload tập tin lên webserver hoặc gửi vào email trên thông tin đăng ký tên miền đó.
+Các cách xác thực:
+#### Xác thực qua email
+Bạn sẽ nhận dược một email đến hộ thư quản trị của miền của bạn với một mã xác nhận và liên kết duy nhất. Theo liên kết và nhập mã duy nhất này để vượt qua xác thực.
 
-Việc chứng thực loại chứng chỉ này sẽ mất từ 5 -10 phút tùy vào cách chứng thực, nhưng nhìn chung khá đơn giản nên thích hợp cho website cá nhân hoặc website chỉ cần có giao thức HTTPS.
-#### Thông tin chứa trong chứng chỉ DV SSL:
-- Tên miền (Common Name).
+Địa chỉ IP được phép:
+- admin@[your-domain]
+- administrator@[your-domain]
+- webmaster@[your-domain]
+- hostmaster@[your-domain]
+- postmaster@[your-domain]
 
-### Organization Validation SSL (OV SSL)
-Đây là loại chứng chỉ SSL dành riêng cho doanh nghiệp/tổ chức và chứng thực dựa vào tính tồn tại của tổ chức/tên miền cần được chứng thực. Tổ chức chứng thực sẽ kiểm tra tính tồn tại của doanh nghiệp/tổ chức thông qua việc xác nhận thông tin đăng ký doanh nghiệp, địa chỉ văn phòng làm việc dựa vào các cổng thông tin chính phủ hoặc trang vàng. Bên cạnh đó, họ cũng sẽ tiến hành gọi điện đến doanh nghiệp để xác nhận rằng số điện thoại trên thông tin doanh nghiệp là chính xác.
+#### Xác thực qua bản ghi DNS
+CSR của bạn sẽ được băm, bạn sẽ được cung cấp giá trị băm. Sau đó, nhập bản ghi DNS CNAME của miền của bạn.
 
-Để sử dụng chứng chỉ này, bạn phải là người đại diện hoặc có thẩm quyền trong một tổ chức/doanh nghiệp đã được đăng ký hợp lệ. Thời gian chứng thực loại chứng chỉ này sẽ mất khoảng từ 3 – 7 ngày làm việc dựa vào khả năng hoàn thiện của thông tin doanh nghiệp.
-#### Thông tin chứa trong chứng chỉ OV SSL:
-- Tên tổ chức/doanh nghiệp.
-- Quốc gia.
-- Địa chỉ.
-- Tên miền.
+Định dạng bản ghi CNAME sẽ như sau:
+```
+_<CSR MD5 hash value>.<your domain>. CNAME <CSR SHA-256 hash value>.<uniqueValue>.comoda.com.
+```
 
-### Extended Validation SSL (EV SSL)
-Đây là loại chứng chỉ cao cấp nhất và được xem như là một loại chứng chỉ uy tín nhất vì sẽ hỗ trợ thêm một số thông tin trong chứng chỉ, đặc biệt là sẽ hiển thị tên tổ chức/doanh nghiệp khi ấn vào ổ khóa trên trình duyệt.
+Ghi chú:
+- SHA-256 được chia cho dấu “.” (chấm) thành hai nhãn 32 ký tự mỗi nhãn
+- Đảm bảo đặt dấu chấm ở cuối tên miền đầy đủ
+- Khi đặt mua chứng chỉ đa miền, hãy tạo các bản ghi CNAME riêng cho từng tên miền đầy đủ trong đơn đặt hàng của bạn
+- Tên dễ nhớ trong bản ghi CNAME cho miền có “www” mà chứng chỉ được đặt hàng, phải không có “www” (nghĩa là nếu miền của bạn là www.example.com, bản ghi sẽ có dạng như sau: _\<value of MD5 hash of CSR>.example.com.).
 
-Chứng chỉ EV SSL cũng sẽ chứng thực giống với loại OV SSL, giá cũng không đắt hơn OV SSL là bao nhiêu nên thường người dùng sẽ chọn loại chứng chỉ này nhiều hơn, đây là sản phẩm lý tưởng cho các trang thương mại điện tử, website bán hàng cần độ tin cây cao.
-#### Thông tin chứa trong chứng chỉ EV SSL:
-- Tên tổ chức/doanh nghiệp.
-- Quốc gia.
-- Địa chỉ.
-- Tên miền.
-- Mã số đăng ký kinh doanh hoặc mã giấy phép tổ chức.
-- Loại hình doanh nghiệp/tổ chức.
-- Lĩnh vực kinh doanh/ngành nghề.
+Ví dụ:
+```
+_09f7e02f1290be211da707a266f153b3.subdomain1.yourdomain.com. CNAME 3d874ab7b199418a9753111648448163.9eb1f2608f4da5aa3560154ca1b0df53.comodoca.com. 
+```
+
+#### Xác thực qua HTTP(S)
+CSR của bạn sẽ được hashed. Bạn sẽ được cung cấp các giá trị băm. Sau đó, tạo một tệp văn bản và lưu nó vào thư mục gốc của trang web của bạn.
+
+Các tập tin và nội dung của nó phải như sau:
+- URL tệp:
+```
+http://<your domain>/.well-known/pki-validation/<Value of MD5 hash in upper case>.txt
+```
+- Nội dung:
+```
+<Value of SHA-256 hash>
+comodoca.com
+```
+
+Ghi chú:
+- Quá trình xác thực sẽ không hoàn tất nếu trang web có chuyển hướng
+- Kiểm tra xem các thư mục /.well-known/ và /.well-known/pki-validation/ có tồn tại trên máy chủ web hay không
+- Nếu bạn yêu cầu chứng chỉ đa miền, thì mỗi miền được bảo vệ trong chứng chỉ phải có một tệp txt trong thư mục gốc của nó
+- Đối với các miền có “www”, quá trình xác thực dựa trên các URL không có “www” (nghĩa là nếu bạn yêu cầu chứng chỉ cho miền www.example.com thì tệp phải có thể truy cập được tại http(s)://example.com/. well-known/pki-validation/\<Value of MD5 hash in upper case>.txt)
+
+### b. Xác thực tổ chức (Organization Validation)
+**Bước 1: Xác thực tên miền.**
+
+**Bước 2: Xác thực tổ chức.**
+
+Có thể thực hiện như sau:
+- Trung tâm chứng nhận kiểm tra xem tổ chức có tồn tại trong cơ quan đăng ký thực thể của tiểu bang hay không.
+- Có thể sử dụng sổ đăng ký dữ liệu công khai, chẳng hạn như Dun & Bradstreet, Hoovers, Companies House trên gov.uk và Lursoft.lv
+- Địa chỉ có thể được xác nhận bằng một trong các tài liệu sau:
+  - Các điều khoản của tổ chức (địa chỉ phải được chỉ định trong đó)
+  - Giấy phép của chính phủ cho hoạt động thương mại nơi địa chỉ được chỉ định;
+  - Bản sao sao kê tài khoản ngân hàng của công ty trong 6 tháng gần nhất (bạn có thể ghi rõ số tài khoản tại đây);
+  - Bản sao hóa đơn điện thoại của công ty trong 6 tháng gần nhất;
+  - Bản sao hóa đơn dịch vụ tiện ích (điện, nước, v.v.) của công ty trong 6 tháng gần nhất hoặc hợp đồng thuê nhà hiện có;
+- Thư công chứng (Thư ý kiến pháp lý)
+
+**Bước 3: Gọi lại.**
+
+Nhân viên của trung tâm chứng nhận gọi cho bạn để xác nhận tính nguyên bản của yêu cầu chứng chỉ và hoàn tất quy trình xác thực.
+
+Sau khi tất cả các bước được hoàn thành, chứng chỉ sẽ được ký và phát hành.
+
+### c. Xác thực mở rộng (Extended Validation)
+**Bước 1: Điền vào các biểu mẫu của trung tâm chứng nhận.**
+
+Trung tâm sẽ gửi cho bạn các mẫu đơn đặc biệt để điền vào.
+
+**Bước 2: Xác nhận tổ chức.**
+
+Quá trình xác nhận tổ chức được mô tả trong OV.
+
+**Bước 3: Xác thực tên miền.**
+
+Quá trình xác thực tên miền được mô tả trong DV
+
+**Bước 4: Gọi lại.**
+
+Nhân viên của trung tâm chứng nhận sẽ gọi để xác nhận tính nguyên gốc của yêu cầu chứng chỉ và hoàn tất quy trình xác nhận.
+
+
 
 ## 3. CSR file dùng làm gì trong quá trình tạo SSL?
 Certificate Signing Request (CSR) file là một file văn bản chứa thông tin của chủ sở hữu tên miền được mã hóa từ máy chủ, được tạo ra trước khi gởi yêu cầu tới nhà cung cấp chứng thực số (Certificate Authority) để tạo ra một chứng thực số SSL.
